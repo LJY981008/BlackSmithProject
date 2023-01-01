@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    private static T instance;
 
     public static T Instance
     {
         get
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = FindObjectOfType(typeof(T)) as T;
-
-                if (_instance == null)
+                GameObject obj;
+                obj = GameObject.Find(typeof(T).Name);
+                if (obj == null)
                 {
-                    Debug.LogError("There's no active " + typeof(T) + " in this scene");
+                    obj = new GameObject(typeof(T).Name);
+                    instance = obj.AddComponent<T>();
+                }
+                else
+                {
+                    instance = obj.GetComponent<T>();
                 }
             }
-
-            return _instance;
+            return instance;
         }
+    }
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 }
