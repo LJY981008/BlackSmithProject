@@ -1,17 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public int a;
-    // Start is called before the first frame update
+
+    public GameObject thisScene;
+    public Canvas thisCanvas;
+    
     void Start()
     {
     }
-
-    // Update is called once per frame
     void Update()
     {
     }
+    
 }

@@ -24,11 +24,23 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     instance = obj.GetComponent<T>();
                 }
             }
+            
             return instance;
         }
     }
+    /// <summary>
+    /// 싱글톤으로 생성되는 오브젝트를 중복, 파괴되지않는 오브젝트로 설정
+    /// </summary>
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        var obj = FindObjectsOfType<T>();
+        if (obj.Length == 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
