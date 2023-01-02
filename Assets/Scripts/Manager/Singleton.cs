@@ -28,9 +28,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
     }
-    /// <summary>
-    /// 싱글톤으로 생성되는 오브젝트를 중복, 파괴되지않는 오브젝트로 설정
-    /// </summary>
     private void Awake()
     {
         var obj = FindObjectsOfType<T>();

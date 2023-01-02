@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ using TMPro;
 public class TitleMenu : MonoBehaviour, IPointerDownHandler
 {
     public List<TitleButton> btnList;
+    public Image btnSetting;
     public TextMeshProUGUI startText;
 
     private void Awake()
@@ -28,6 +30,7 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
     /// </summary>
     public void OnPointerDown(PointerEventData _eventData)
     {
+        Debug.Log(_eventData.position);
         string selectedBtn = string.Empty;
         foreach (var btn in btnList)
         {
@@ -42,13 +45,16 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
                 SetScene("TownScene");
                 break;
             case "Btn_GameSetting":
-                Debug.Log("setting");
+                btnSetting.gameObject.SetActive(true);
                 break;
             case "Btn_GameExit":
+                if (EditorApplication.isPlaying)
+                    EditorApplication.isPlaying = false;
+                else
+                    Application.Quit();
                 Debug.Log("exit");
                 break;
             default:
-                Debug.Log("not");
                 break;
         }
     }
@@ -56,7 +62,7 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
     /// Scene 설정 코루틴 호출 함수
     /// </summary>
     /// <param name="_sceneName">호출할 Scene의 이름<!param>
-    public void SetScene(string _sceneName)
+    private void SetScene(string _sceneName)
     {
         foreach (var btn in btnList)
         {
@@ -104,6 +110,5 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
             }
             yield return null;
         }
-        
     }
 }
