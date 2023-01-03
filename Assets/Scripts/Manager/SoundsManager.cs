@@ -7,4 +7,5 @@ using UnityEngine;
 public class SoundsManager : Singleton<SoundsManager>
 {
     public AudioSource backgroundAudioSource;
+    //public AudioSource effectAudioSource;
 }

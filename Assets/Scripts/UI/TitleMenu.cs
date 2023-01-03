@@ -51,7 +51,6 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
                     EditorApplication.isPlaying = false;
                 else
                     Application.Quit();
-                Debug.Log("exit");
                 break;
             default:
                 break;

@@ -19,6 +19,7 @@ public class SettingMenu : MonoBehaviour, IPointerDownHandler
     {
         if (btnExit.IsInRect(_eventData.position))
         {
+            SaveInfoToJson.SaveSetting();
             gameObject.SetActive(false);
         }
     }
