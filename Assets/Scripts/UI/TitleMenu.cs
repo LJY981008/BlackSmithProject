@@ -30,7 +30,6 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
     /// </summary>
     public void OnPointerDown(PointerEventData _eventData)
     {
-        Debug.Log(_eventData.position);
         string selectedBtn = string.Empty;
         foreach (var btn in btnList)
         {
