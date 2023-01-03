@@ -36,7 +36,6 @@ public static class SaveInfoToJson
             SaveInfo info = new SaveInfo();
             string loadJson = File.ReadAllText(pathJson + infoJson);
             info = JsonUtility.FromJson<Serialization<SaveInfo>>(loadJson).toReturn();
-            Debug.Log(loadJson + " : " + info.BACKGROUNDSOUND );
             SoundsManager.Instance.backgroundAudioSource.volume = (float)(info.BACKGROUNDSOUND);
         }
         catch (Exception e)
