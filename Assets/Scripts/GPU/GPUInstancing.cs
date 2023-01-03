@@ -17,10 +17,9 @@ public class GPUInstancing : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             renderer = obj.GetComponent<MeshRenderer>();
-            Material material = renderer.material;
-            float r = material.color.r;
-            float g = material.color.g;
-            float b = material.color.b;
+            float r = 1f;
+            float g = 1f;
+            float b = 1f;
             props.SetColor("_Color", new Color(r, g, b));
             renderer.SetPropertyBlock(props);
         }
