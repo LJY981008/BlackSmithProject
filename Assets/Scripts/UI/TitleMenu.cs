@@ -15,6 +15,7 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
 {
     public List<TitleButton> btnList;
     public Image btnSetting;
+    public Image btnLogin;
     public TextMeshProUGUI startText;
 
     private void Awake()
@@ -40,17 +41,28 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
         }
         switch (selectedBtn)
         {
+            case "Btn_Login":
+                {
+                    btnLogin.gameObject.SetActive(true);
+                }
+                break;
             case "Btn_GameStart":
-                SetScene("TownScene");
+                {
+                    SetScene("TownScene");
+                }
                 break;
             case "Btn_GameSetting":
-                btnSetting.gameObject.SetActive(true);
+                {
+                    btnSetting.gameObject.SetActive(true);
+                }
                 break;
             case "Btn_GameExit":
-                if (EditorApplication.isPlaying)
-                    EditorApplication.isPlaying = false;
-                else
-                    Application.Quit();
+                {
+                    if (EditorApplication.isPlaying)
+                        EditorApplication.isPlaying = false;
+                    else
+                        Application.Quit();
+                }
                 break;
             default:
                 break;

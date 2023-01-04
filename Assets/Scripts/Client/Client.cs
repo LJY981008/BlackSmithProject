@@ -18,10 +18,8 @@ public class Client : MonoBehaviour
     }
     private void Start()
     {
-        user = new User(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp));
         IPEndPoint _ip = new IPEndPoint(IPAddress.Parse(ip), port);
-        user.sock.Connect(_ip);
-        
+        user = new User(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp), _ip);
     }
     private void Update()
     {
@@ -41,9 +39,16 @@ public class Client : MonoBehaviour
     }
     private void OnDestroy()
     {
-        user.isInterrupt = true;
-        user.sock.Shutdown(SocketShutdown.Both);
-        user.sock.Close();
+        try
+        {
+            user.isInterrupt = true;
+            user.sock.Shutdown(SocketShutdown.Both);
+            user.sock.Close();
+        }
+        catch (SocketException e)
+        {
+            Debug.Log(e.Message);
+        }
         Debug.Log("³¡");
     }
 }

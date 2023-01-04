@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
@@ -18,7 +19,7 @@ namespace ConnectClient.User{
         public int uid;
         public string name;
         private Thread thread;
-        public User(Socket _sock)
+        public User(Socket _sock, IPEndPoint _ip)
         {
             sock = _sock;
             sBuff = new byte[128];
@@ -27,9 +28,17 @@ namespace ConnectClient.User{
             isConnect = false;
             isInterrupt = false;
             packetQueue = new Queue<byte[]>();
-            ThreadStart threadStart = new ThreadStart(NewPacket);
-            thread = new Thread(threadStart);
-            thread.Start();
+            try
+            {
+                sock.Connect(_ip);
+                ThreadStart threadStart = new ThreadStart(NewPacket);
+                thread = new Thread(threadStart);
+                thread.Start();
+            }
+            catch (SocketException e)
+            {
+                Debug.Log(e.Message);
+            }
         }
         public void Receive()
         {
@@ -64,7 +73,6 @@ namespace ConnectClient.User{
                 
                 if (packetQueue.Count > 0)
                 {
-                    Debug.Log(packetQueue.Count);
                     byte[] data = packetQueue.Dequeue();
                     byte[] _packet = new byte[2];
                     Array.Copy(data, 0, _packet, 0, 2);
