@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using TMPro;
 using UnityEditor;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System;
-using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// 타이틀 화면의 버튼들의 이벤트를 설정하는 스크립트
@@ -21,7 +20,7 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
     private void Awake()
     {
         btnList = new List<TitleButton>();
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             btnList.Add(transform.GetChild(i).GetComponent<TitleButton>());
         }
@@ -101,9 +100,9 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
                 // Scene로딩 완료시 알림
                 startText.text = "Press Space to Start";
                 tmpColor = startText.color;
-                if(tmpColor.a >= 0.8f)
+                if (tmpColor.a >= 0.8f)
                     alphaValue = -0.005f;
-                else if(tmpColor.a <= 0.2f)
+                else if (tmpColor.a <= 0.2f)
                     alphaValue = 0.005f;
                 tmpColor.a += alphaValue;
                 startText.color = tmpColor;

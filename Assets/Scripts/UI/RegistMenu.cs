@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 /// <summary>
 /// 회원가입 메뉴
 /// </summary>
@@ -40,7 +38,7 @@ public class RegistMenu : MonoBehaviour, IPointerDownHandler
                     string inputPW = infoList[2].text;
                     string inputPWConfirm = infoList[3].text;
                     string inputEmail = infoList[4].text;
-                    if (inputNickName.Trim() == string.Empty || 
+                    if (inputNickName.Trim() == string.Empty ||
                         inputID.Trim() == string.Empty ||
                         inputPW.Trim() == string.Empty ||
                         inputPWConfirm.Trim() == string.Empty ||
@@ -63,7 +61,7 @@ public class RegistMenu : MonoBehaviour, IPointerDownHandler
                         list.Add(inputPW);
                         list.Add(inputEmail);
                         ClientManager.Instance.Resist(list);
-                        foreach(var item in infoList)
+                        foreach (var item in infoList)
                         {
                             item.text = string.Empty;
                         }

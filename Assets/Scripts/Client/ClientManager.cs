@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using ConnectClient.User;
-using System.Net.Sockets;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
+using UnityEngine;
 /// <summary>
 /// 클라이언트
 /// </summary>
@@ -33,16 +32,6 @@ public class ClientManager : Singleton<ClientManager>
 
     private void OnDestroy()
     {
-        try
-        {
-            user.isInterrupt = true;
-            user.sock.Shutdown(SocketShutdown.Both);
-            user.sock.Close();
-        }
-        catch (SocketException e)
-        {
-            Debug.Log(e.Message);
-        }
-        Debug.Log("끝");
+        user.Dispose();
     }
 }

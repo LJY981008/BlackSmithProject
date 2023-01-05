@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 /// <summary>
 /// °ÔÀÓ ÃÑ°ý ¸Å´ÏÀú
 /// </summary>
@@ -21,10 +18,9 @@ public class GameManager : Singleton<GameManager>
     }
     void Update()
     {
-        if(currentScene != "TitleScene")
+        if (currentScene != "TitleScene")
         {
 
         }
     }
-    
 }

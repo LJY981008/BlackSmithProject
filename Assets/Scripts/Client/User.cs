@@ -1,17 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Game.Packet;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 using System.Text;
-using Game.Packet;
+using System.Threading;
+using UnityEngine;
 /// <summary>
 /// 蜡历家南 沥焊
 /// </summary>
-namespace ConnectClient.User {
-    public class User
+namespace ConnectClient.User
+{
+    public class User:IDisposable
     {
         public Socket sock;
         public byte[] sBuff;
@@ -24,7 +24,6 @@ namespace ConnectClient.User {
         private Thread thread;
         public User(Socket _sock, IPEndPoint _ip)
         {
-            Debug.Log("ぞし");
             sock = _sock;
             sBuff = new byte[128];
             rBuff = new byte[128];
@@ -119,5 +118,32 @@ namespace ConnectClient.User {
             Array.Copy(_email, 0, sBuff, 72, _email.Length);
             Send();
         }
+        public void MakeExitPacket()
+        {
+            EXIT exit;
+            exit.ePacketType = ePACKETTYPE.EXIT;
+            byte[] _packetType = BitConverter.GetBytes((short)exit.ePacketType);
+            Array.Copy(_packetType, 0, sBuff, 0, _packetType.Length);
+            Debug.Log((short)exit.ePacketType);
+            Send();
+        }
+
+        public void Dispose()
+        {
+            try
+            {
+                Debug.Log("家戈");
+                MakeExitPacket();
+                isInterrupt = true;
+                sock.Shutdown(SocketShutdown.Both);
+                sock.Close();
+                GC.SuppressFinalize(this);
+            }
+            catch (SocketException e)
+            {
+                Debug.Log(e.Message);
+            }
+        }
+
     }
 }

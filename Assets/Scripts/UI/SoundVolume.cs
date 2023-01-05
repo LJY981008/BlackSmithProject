@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SoundVolume : MonoBehaviour
 {
@@ -31,8 +29,9 @@ public class SoundVolume : MonoBehaviour
         {
             // 효과음 볼륨 넣어주기
             text.text = "(" + Mathf.RoundToInt(value * 100) + "%)";
-        } 
-        else if (text.transform.name.Contains("BS")) {
+        }
+        else if (text.transform.name.Contains("BS"))
+        {
             SoundsManager.Instance.backgroundAudioSource.volume = value;
             text.text = "(" + Mathf.RoundToInt(value * 100) + "%)";
         }

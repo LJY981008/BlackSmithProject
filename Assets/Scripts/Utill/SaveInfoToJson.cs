@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 /// <summary>
@@ -23,7 +21,7 @@ public static class SaveInfoToJson
         {
             File.WriteAllText(pathJson + jsonName, jsonData);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             // 최초 저장
             Directory.CreateDirectory(pathJson);

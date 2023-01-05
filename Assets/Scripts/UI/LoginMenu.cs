@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +9,7 @@ public class LoginMenu : MonoBehaviour, IPointerDownHandler
     public GameObject registMenu;
     private List<TitleButton> btnList;
     private void Awake()
-    { 
+    {
         btnList = new List<TitleButton>();
         btnList.Add(Utill.FindTransform(transform, "Exit").GetComponent<TitleButton>());
         btnList.Add(Utill.FindTransform(transform, "Regist").GetComponent<TitleButton>());

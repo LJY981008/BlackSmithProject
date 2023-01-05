@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// 유저가 설정한 내용을 Json에 직렬화하는 과정
