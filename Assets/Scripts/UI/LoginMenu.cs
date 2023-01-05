@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class LoginMenu : MonoBehaviour, IPointerDownHandler
 {
+    public GameObject registMenu;
     private List<TitleButton> btnList;
     private void Awake()
     { 
@@ -33,7 +34,8 @@ public class LoginMenu : MonoBehaviour, IPointerDownHandler
             case "Regist":
                 {
                     gameObject.SetActive(false);
-                    //로그인 화면 등장
+                    registMenu.SetActive(true);
+
                 }
                 break;
             case "Confirm":

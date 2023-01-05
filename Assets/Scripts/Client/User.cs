@@ -63,7 +63,6 @@ namespace ConnectClient.User{
             byte[] data = new byte[128];
             Array.Copy(sBuff, 0, data, 0, sBuff.Length);
             Array.Clear(sBuff, 0, sBuff.Length);
-            packetQueue.Enqueue(data);
         }
         public void NewPacket()
         {
@@ -82,13 +81,10 @@ namespace ConnectClient.User{
                         case (int)ePACKETTYPE.USERINFO:
                             {
                                 byte[] _uid = new byte[4];
-                                byte[] _name = new byte[120];
                                 Array.Copy(data, 2, _uid, 0, _uid.Length);
-                                Array.Copy(data, 2, _name, 0, _name.Length);
                                 uid = BitConverter.ToInt32(_uid, 0);
-                                name = Encoding.Default.GetString(_name);
                                 isConnect = true;
-                                Debug.Log("Ä¿³ØÆ®");
+                                Debug.Log("Ä¿³ØÆ® UID = " + uid);
                             }
                             break;
                         default:
@@ -96,6 +92,30 @@ namespace ConnectClient.User{
                     }
                 }
             }
+        }
+        public void MakeRegistPacket(List<string> info)
+        {
+            REGISTINFO registInfo;
+            registInfo.ePacketType = ePACKETTYPE.REGISTINFO;
+            registInfo.name = info[0];
+            registInfo.id = info[1];
+            registInfo.pw = info[2];
+            registInfo.email = info[3];
+            byte[] _packetType = BitConverter.GetBytes((short)registInfo.ePacketType);
+            byte[] _name = new byte[10];
+            byte[] _id = new byte[30];
+            byte[] _pw = new byte[40];
+            byte[] _email = new byte[60];
+            _name = Encoding.UTF8.GetBytes(registInfo.name);
+            _id = Encoding.UTF8.GetBytes(registInfo.id);
+            _pw = Encoding.UTF8.GetBytes(registInfo.pw);
+            _email = Encoding.UTF8.GetBytes(registInfo.email);
+            Array.Copy(_packetType, 0, sBuff, 0, _packetType.Length);
+            Array.Copy(_name, 0, sBuff, 2, _name.Length);
+            Array.Copy(_id, 0, sBuff, 12, _id.Length);
+            Array.Copy(_pw, 0, sBuff, 32, _pw.Length);
+            Array.Copy(_email, 0, sBuff, 72, _email.Length);
+            Send();
         }
     }
 }

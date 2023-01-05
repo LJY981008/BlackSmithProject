@@ -23,20 +23,14 @@ public class Client : MonoBehaviour
     }
     private void Update()
     {
-        if (user.isConnect)
-        {
-            delTmp += Log;
-            delTmp();
-        }
+        
     }
 
-    public void Log()
+    public void Resist(List<string> _infoList)
     {
-        Debug.Log("·Î±×");
-        user.isConnect = false;
-        Debug.Log(user.uid + " : " + user.name);
-        delTmp -= Log;
+        user.MakeRegistPacket(_infoList);
     }
+
     private void OnDestroy()
     {
         try
