@@ -4,26 +4,26 @@ using UnityEngine;
 using ConnectClient.User;
 using System.Net.Sockets;
 using System.Net;
+/// <summary>
+/// 클라이언트
+/// </summary>
 delegate void delegateTmp();
-public class Client : MonoBehaviour
+public class ClientManager : Singleton<ClientManager>
 {
+    protected ClientManager() { }
     private User user;
     private delegateTmp delTmp;
     private string ip;
     private int port;
-    private void Awake()
+    private void Start()
     {
         ip = "172.30.1.25";
         port = 8082;
-    }
-    private void Start()
-    {
         IPEndPoint _ip = new IPEndPoint(IPAddress.Parse(ip), port);
         user = new User(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp), _ip);
     }
     private void Update()
     {
-        
     }
 
     public void Resist(List<string> _infoList)

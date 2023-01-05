@@ -7,7 +7,10 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using Game.Packet;
-namespace ConnectClient.User{
+/// <summary>
+/// 蜡历家南 沥焊
+/// </summary>
+namespace ConnectClient.User {
     public class User
     {
         public Socket sock;
@@ -21,10 +24,11 @@ namespace ConnectClient.User{
         private Thread thread;
         public User(Socket _sock, IPEndPoint _ip)
         {
+            Debug.Log("ぞし");
             sock = _sock;
             sBuff = new byte[128];
             rBuff = new byte[128];
-            name = String.Empty;
+            name = string.Empty;
             isConnect = false;
             isInterrupt = false;
             packetQueue = new Queue<byte[]>();
@@ -42,9 +46,7 @@ namespace ConnectClient.User{
         }
         public void Receive()
         {
-            Debug.Log("府");
             sock.BeginReceive(rBuff, 0, rBuff.Length, SocketFlags.None, ReceiveCallBack, sock);
-            Debug.Log("府矫宏");
         }
         public void Send()
         {
@@ -69,7 +71,7 @@ namespace ConnectClient.User{
             Receive();
             while (!isInterrupt)
             {
-                
+
                 if (packetQueue.Count > 0)
                 {
                     byte[] data = packetQueue.Dequeue();

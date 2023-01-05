@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+/// <summary>
+/// 토스트 메시지
+/// </summary>
 public class ToastMessage : MonoBehaviour
 {
     private TextMeshProUGUI toast;

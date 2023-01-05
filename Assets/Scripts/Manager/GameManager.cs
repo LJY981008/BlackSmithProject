@@ -8,15 +8,15 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : Singleton<GameManager>
 {
+    protected GameManager()
+    {
+    }
     [HideInInspector] public GameObject thisScene;
     [HideInInspector] public Canvas thisCanvas;
     [HideInInspector] public string currentScene;
-    private void Awake()
-    {
-        SaveInfoToJson.LoadSetting();
-    }
     void Start()
     {
+        SaveInfoToJson.LoadSetting();
         currentScene = "TitleScene";
     }
     void Update()

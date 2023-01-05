@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+/// <summary>
+/// 로그인메뉴
+/// </summary>
 public class LoginMenu : MonoBehaviour, IPointerDownHandler
 {
     public GameObject registMenu;

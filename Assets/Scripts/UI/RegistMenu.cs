@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+/// <summary>
+/// 회원가입 메뉴
+/// </summary>
 public class RegistMenu : MonoBehaviour, IPointerDownHandler
 {
     private List<TitleButton> btnList;
@@ -54,6 +57,12 @@ public class RegistMenu : MonoBehaviour, IPointerDownHandler
                         //서버 Json에 저장
                         //중복 닉네임, 아이디, 이메일 확인
                         toast.ShowMessage(0, 1f);
+                        List<string> list = new List<string>();
+                        list.Add(inputNickName);
+                        list.Add(inputID);
+                        list.Add(inputPW);
+                        list.Add(inputEmail);
+                        ClientManager.Instance.Resist(list);
                         foreach(var item in infoList)
                         {
                             item.text = string.Empty;

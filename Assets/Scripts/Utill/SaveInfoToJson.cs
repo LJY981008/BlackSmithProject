@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+/// <summary>
+/// 유저의 설정값을 Json으로 저장
+/// </summary>
 public static class SaveInfoToJson
 {
     static string pathJson = Path.Combine(Application.dataPath, "/Documents/BlackSmith/");

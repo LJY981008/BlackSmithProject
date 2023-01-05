@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class ResourcesManager : Singleton<ResourcesManager>
 {
+    protected ResourcesManager() { }
     [HideInInspector] public AudioClip backgroundAudio;
 
     private string bgmPath = "Audio/Warriors";
