@@ -16,7 +16,6 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
     public Image btnSetting;
     public Image btnLogin;
     public TextMeshProUGUI startText;
-
     private void Awake()
     {
         btnList = new List<TitleButton>();
@@ -25,6 +24,26 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
             btnList.Add(transform.GetChild(i).GetComponent<TitleButton>());
         }
     }
+    private void Start()
+    {
+        StartCoroutine(WaitingLogin());
+    }
+    private IEnumerator WaitingLogin()
+    {
+        while(ClientManager.Instance.triggerLogin != 0)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        foreach(var btn in btnList)
+        {
+            if(btn.name == "Btn_Login")
+            {
+                btn.gameObject.SetActive(false);
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// 타이틀 메뉴의 버튼 클릭 이벤트
     /// </summary>
@@ -57,10 +76,7 @@ public class TitleMenu : MonoBehaviour, IPointerDownHandler
                 break;
             case "Btn_GameExit":
                 {
-                    if (EditorApplication.isPlaying)
-                        EditorApplication.isPlaying = false;
-                    else
-                        Application.Quit();
+                    ClientManager.Instance.Exit();
                 }
                 break;
             default:

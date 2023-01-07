@@ -3809,6 +3809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1929e53c8314447a3a344d22baafb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerLogin: -1
 --- !u!1 &787325660
 GameObject:
   m_ObjectHideFlags: 0
@@ -5460,7 +5461,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 10
+  m_CharacterLimit: 15
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -6428,7 +6429,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 10
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -7544,6 +7545,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   registMenu: {fileID: 1805892142}
+  btnList:
+  - {fileID: 2115450205}
+  - {fileID: 1728591826}
+  - {fileID: 790415279}
+  loginField:
+  - {fileID: 1352311475}
+  - {fileID: 1531969964}
 --- !u!114 &1832380622
 MonoBehaviour:
   m_ObjectHideFlags: 0

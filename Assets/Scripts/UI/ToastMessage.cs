@@ -25,11 +25,15 @@ public class ToastMessage : MonoBehaviour
         msgList.Add("사용중인 아이디입니다");
         msgList.Add("사용중인 이메일입니다");
         msgList.Add("빈공간을 채워주세요");
+        msgList.Add("로그인에 성공했습니다");
+        msgList.Add("존재하지 않는 아이디 입니다");
+        msgList.Add("로그인 시도 중...");
     }
     public void ShowMessage(int i, float duration)
     {
-        toast.enabled = true;
-        msg = msgList[i];
+        StopAllCoroutines();
+        toast.color = originColor;
+        msg = msgList[i]; 
         StartCoroutine(showMessageCoroutine(msg, duration));
     }
     private IEnumerator fadeInOut(float _duration, bool inOut)

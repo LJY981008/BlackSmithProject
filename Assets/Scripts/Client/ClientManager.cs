@@ -1,4 +1,5 @@
 using ConnectClient.User;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -14,6 +15,7 @@ public class ClientManager : Singleton<ClientManager>
     private delegateTmp delTmp;
     private string ip;
     private int port;
+    public int triggerLogin = -1;
     private void Start()
     {
         ip = "172.30.1.25";
@@ -29,9 +31,25 @@ public class ClientManager : Singleton<ClientManager>
     {
         user.MakeRegistPacket(_infoList);
     }
-
+    public void Login(List<string> _infoList)
+    {
+        user.MakeLoginPacket(_infoList);
+    }
+    public void Exit()
+    {
+        user.MakeExitPacket();
+    }
     private void OnDestroy()
     {
-        user.Dispose();
+        try
+        {
+            Debug.Log("Á¾·á");
+            user.MakeExitPacket();
+            user.Dispose();
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 }

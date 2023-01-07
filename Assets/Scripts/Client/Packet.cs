@@ -17,6 +17,15 @@ namespace Game.Packet
         public ePACKETTYPE ePacketType;
         public int uid;
     }
+    public struct LOGININFO
+    {
+        public ePACKETTYPE ePacketType;
+        public string id;
+        public string pw;
+        public string name;
+        public string email;
+        public bool isSuccess;
+    }
     public struct REGISTINFO
     {
         public ePACKETTYPE ePacketType;
