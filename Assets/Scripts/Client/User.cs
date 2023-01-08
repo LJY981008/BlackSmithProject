@@ -199,6 +199,7 @@ namespace ConnectClient.User
         {
             try
             {
+                Debug.Log("Á¾·á");
                 isInterrupt = true;
                 sock.Close();
                 GC.SuppressFinalize(this);

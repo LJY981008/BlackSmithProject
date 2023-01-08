@@ -1,4 +1,4 @@
-Shader "Custom/GPUInstancing"
+Shader "Custom/GPUInstancingVilige"
 {
     Properties
     {
@@ -31,13 +31,13 @@ Shader "Custom/GPUInstancing"
         //fixed4 _Color;
 
         UNITY_INSTANCING_BUFFER_START(Props)
-            UNITY_DEFINE_INSTANCED_PROP(fixed4, _Color) // 인스턴싱 코드
+            UNITY_DEFINE_INSTANCED_PROP(fixed4, _Color)
         UNITY_INSTANCING_BUFFER_END(Props)
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * UNITY_ACCESS_INSTANCED_PROP(Props, _Color);   // 인스턴싱 코드
+            fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
             o.Albedo = c.rgb;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;

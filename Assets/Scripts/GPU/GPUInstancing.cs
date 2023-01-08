@@ -4,12 +4,24 @@ using UnityEngine;
 public class GPUInstancing : MonoBehaviour
 {
     private List<GameObject> objects;
-    void Start()
+    private Transform tmpTr;
+
+    private void Awake()
     {
         objects = new List<GameObject>();
-        for (int i = 0; i < transform.childCount; i++)
-            objects.Add(transform.GetChild(i).gameObject);
-
+        tmpTr = Utill.FindTransform(transform, "Vilige");
+        for (int i = 0; i < tmpTr.childCount; i++)
+        {
+            objects.Add(tmpTr.GetChild(i).gameObject);
+        }
+        tmpTr = Utill.FindTransform(transform, "Terrains");
+        for (int i = 0; i < tmpTr.childCount; i++)
+        {
+            objects.Add(tmpTr.GetChild(i).gameObject);
+        }
+    }
+    void Start()
+    {
         MaterialPropertyBlock props = new MaterialPropertyBlock();
         MeshRenderer renderer;
 
