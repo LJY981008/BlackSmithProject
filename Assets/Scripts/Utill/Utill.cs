@@ -2,6 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public static class Utill
 {
+
+    public static bool CheakedGrounded(float _y, float _targetY)
+    {
+        bool cheaked = true;
+        if (_targetY - _y >= 0.1f)
+            cheaked = false;
+        return cheaked;
+    }
+
     /// <summary>
     /// 오브젝트를 찾는 재귀함수
     /// </summary>

@@ -8,7 +8,21 @@ public class PlayerCharacter : MonoBehaviour
 {
     public CharacterController controller;
     public CharacterData characterData;
-    private void Awake()
+    public GameObject terrain;
+    public Animator animator;
+
+    public bool isJump = false;
+    public bool isMove = false;
+    private void Update()
     {
+        animator.SetBool("isMove", isMove);
+        if (!isJump) {
+            animator.SetBool("isGround", true);
+            animator.SetBool("isJump", isJump);
+        }
+        else {
+            animator.SetBool("isGround", false);
+            animator.SetBool("isJump", isJump);
+        }
     }
 }

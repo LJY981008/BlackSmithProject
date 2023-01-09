@@ -53,16 +53,21 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("컨트롤러가 존재하지 않음");
                 return;
             }
+            
             if (controller.isGrounded)
             {
                 moveDir = new Vector3(
                     Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 moveDir = controller.transform.TransformDirection(moveDir);
                 moveDir *= playerCharacter.characterData.Speed;
-                if (isJump == false && Input.GetButton("Jump"))
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                    playerCharacter.isMove = true;
+                else
+                    playerCharacter.isMove = false;
+                if (!isJump && Input.GetButton("Jump"))
                 {
-                    controller.transform.rotation = Quaternion.Euler(0, 45, 0);
                     isJump = true;
+                    playerCharacter.isJump = true;
                     moveDir.y = playerCharacter.characterData.JumpPower;
                 }
             }
@@ -84,10 +89,12 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            if (!Input.GetButton("Jump"))
+            if (!Input.GetButton("Jump") &&
+                controller.isGrounded)
             {
                 isJump = false;
                 isFlying = false;
+                playerCharacter.isJump = false;
             }
 
             controller.Move(moveDir * Time.deltaTime);

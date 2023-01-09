@@ -190,7 +190,6 @@ namespace ConnectClient.User
             byte[] _packetType = new byte[2];
             _packetType = BitConverter.GetBytes((short)exit.ePacketType);
             Array.Copy(_packetType, 0, sBuff, 0, _packetType.Length);
-            Debug.Log((short)exit.ePacketType);
             isConnect = false;
             Send();
         }

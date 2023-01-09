@@ -296,6 +296,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 286544905, guid: 607ded4e4c6a11042befac6760a9b937, type: 3}
+      propertyPath: m_StepOffset
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 29803562160542866, guid: 607ded4e4c6a11042befac6760a9b937, type: 3}
       propertyPath: m_Name
       value: Character
@@ -371,6 +375,14 @@ MonoBehaviour:
   controller: {fileID: 286544905}
   characterData: {fileID: 11400000, guid: e5c91748b3b2c9f448ba4e1c038bdf38, type: 2}
   terrain: {fileID: 6078645587912795986}
+  animator: {fileID: 286544907}
+  isJump: 0
+  isMove: 0
+--- !u!95 &286544907 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2870673591737902925, guid: 607ded4e4c6a11042befac6760a9b937, type: 3}
+  m_PrefabInstance: {fileID: 286544903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &533847007
 GameObject:
   m_ObjectHideFlags: 0
