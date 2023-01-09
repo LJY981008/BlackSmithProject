@@ -4892,6 +4892,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840f960f54ad9e045a6179d2d2d79a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 730273553}
+  playerCharacter: {fileID: 0}
+  cameraController: {fileID: 0}
 --- !u!1 &1211410520
 GameObject:
   m_ObjectHideFlags: 0
@@ -6674,6 +6677,8 @@ MonoBehaviour:
   thisScene: {fileID: 0}
   thisCanvas: {fileID: 0}
   currentScene: 
+  playerCharacter: {fileID: 0}
+  cameraController: {fileID: 0}
 --- !u!4 &1650895494
 Transform:
   m_ObjectHideFlags: 0
@@ -7754,7 +7759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc06f2f180436ae4895a6c35baebb541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundAudioSource: {fileID: 0}
+  backgroundAudioSource: {fileID: 144216961}
 --- !u!4 &1889955561
 Transform:
   m_ObjectHideFlags: 0

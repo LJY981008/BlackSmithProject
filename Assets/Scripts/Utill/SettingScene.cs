@@ -6,19 +6,34 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SettingScene : MonoBehaviour
 {
+    public Canvas canvas;
+    public PlayerCharacter playerCharacter;
+    public CameraController cameraController;
+
     Scene scene;
     private void Awake()
     {
         try
         {
+            // 씬이 변경되어 스폰될 때 현재 씬의 정보를 매니저에 세팅
             scene = SceneManager.GetActiveScene();
             GameObject thisScene = gameObject;
-            Canvas thisCanvas = Utill.FindTransform(thisScene.transform, "Canvas").GetComponent<Canvas>();
-            Utill.SetResolution(thisCanvas);
+            Utill.SetResolution(canvas);
+            // 내용 작성
             GameManager.Instance.thisScene = thisScene;
-            GameManager.Instance.thisCanvas = thisCanvas;
-            GameManager.Instance.currentScene = scene.name;
+            GameManager.Instance.thisCanvas = canvas;
             SoundsManager.Instance.backgroundAudioSource = Camera.main.transform.GetComponent<AudioSource>();
+            if (scene.name.Contains("Town"))
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                GameManager.Instance.cameraController = cameraController;
+                GameManager.Instance.playerCharacter = playerCharacter;
+                GameManager.Instance.controller = playerCharacter.controller;
+                GameManager.Instance.playerData = playerCharacter.characterData;
+            }
+            //세팅이 끝나면 현재씬의 정보 변경
+            GameManager.Instance.currentScene = scene.name;
         }
         catch (Exception e)
         {
