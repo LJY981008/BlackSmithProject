@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     public CharacterController controller;
     public CharacterData playerData;
     public CameraController cameraController;
+    public GameObject inventory;
 
     /// <summary>
     /// 카메라 이동량 변수
@@ -27,6 +28,11 @@ public class GameManager : Singleton<GameManager>
     private Vector3 moveDir = Vector3.zero;
     private bool isJump = false;
     private bool isFlying = false;
+
+    /// <summary>
+    /// 인벤토리 변수
+    /// </summary>
+    private bool isOpen = false;
     void Start()
     {
         SaveInfoToJson.LoadSetting();
@@ -96,8 +102,20 @@ public class GameManager : Singleton<GameManager>
                 isFlying = false;
                 playerCharacter.isJump = false;
             }
-
             controller.Move(moveDir * Time.deltaTime);
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                if (!isOpen)
+                {
+                    inventory.SetActive(true);
+                    isOpen = true;
+                }
+                else
+                {
+                    inventory.SetActive(false);
+                    isOpen = false;
+                }
+            }
         }
     }
 }

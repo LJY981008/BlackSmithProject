@@ -80,7 +80,6 @@ namespace ConnectClient.User
             Receive();
             while (!isInterrupt)
             {
-
                 if (packetQueue.Count > 0)
                 {
                     byte[] data = packetQueue.Dequeue();

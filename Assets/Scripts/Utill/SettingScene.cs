@@ -25,12 +25,13 @@ public class SettingScene : MonoBehaviour
             SoundsManager.Instance.backgroundAudioSource = Camera.main.transform.GetComponent<AudioSource>();
             if (scene.name.Contains("Town"))
             {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                /*Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;*/
                 GameManager.Instance.cameraController = cameraController;
                 GameManager.Instance.playerCharacter = playerCharacter;
                 GameManager.Instance.controller = playerCharacter.controller;
                 GameManager.Instance.playerData = playerCharacter.characterData;
+                GameManager.Instance.inventory = Utill.FindTransform(transform, "Inventory").gameObject;
             }
             //세팅이 끝나면 현재씬의 정보 변경
             GameManager.Instance.currentScene = scene.name;
