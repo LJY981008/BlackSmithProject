@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public static class Utill
 {
-
-    public static bool CheakedGrounded(float _y, float _targetY)
+    public static bool CheckGround(CharacterController _controller)
     {
-        bool cheaked = true;
-        if (_targetY - _y >= 0.1f)
-            cheaked = false;
-        return cheaked;
+        if (_controller.isGrounded)
+            return true;
+        var ray = new Ray(_controller.transform.position + Vector3.up * 0.1f, Vector3.down);
+        var maxDistance = 0.3f;
+        return Physics.Raycast(ray, maxDistance, 3);
     }
+
 
     /// <summary>
     /// 오브젝트를 찾는 재귀함수

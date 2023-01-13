@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private Vector3 moveDir = Vector3.zero;
     private bool isJump = false;
-    private bool isFlying = false;
+    private bool isGround = true;
 
     /// <summary>
     /// 인벤토리 변수
@@ -44,6 +44,7 @@ public class GameManager : Singleton<GameManager>
             return;
         if (currentScene == "TownScene")
         {
+            isGround = controller.isGrounded;
             cameraXmove += Input.GetAxis("Mouse X");
             cameraYmove -= Input.GetAxis("Mouse Y");
             cameraController.CameraRotation(playerCharacter, cameraXmove, cameraYmove);
@@ -60,7 +61,7 @@ public class GameManager : Singleton<GameManager>
                 return;
             }
             
-            if (controller.isGrounded)
+            if (isGround)
             {
                 moveDir = new Vector3(
                     Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -79,27 +80,15 @@ public class GameManager : Singleton<GameManager>
             }
             else
             {
-                if (moveDir.y < 0 && !isJump && Input.GetButton("Jump"))
-                    isFlying = true;
-                if (isFlying)
-                {
-                    isJump = true;
-                    moveDir.y *= 0.95f;
-                    if (moveDir.y > -1) moveDir.y = -1;
-                    moveDir.x = Input.GetAxis("Horizontal");
-                    moveDir.z = Input.GetAxis("Vertical");
-                }
-                else
-                {
+                isGround = Utill.CheckGround(controller);
+                if(!isGround)
                     moveDir.y -= playerData.Gravity * Time.deltaTime;
-                }
             }
 
             if (!Input.GetButton("Jump") &&
-                controller.isGrounded)
+                isGround)
             {
                 isJump = false;
-                isFlying = false;
                 playerCharacter.isJump = false;
             }
             controller.Move(moveDir * Time.deltaTime);
