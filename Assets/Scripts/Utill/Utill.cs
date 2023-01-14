@@ -2,6 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public static class Utill
 {
+    /// <summary>
+    /// 바닥체크 개선
+    /// </summary>
+    /// <param name="_controller">캐릭터 컨트롤러</param>
+    /// <returns></returns>
     public static bool CheckGround(CharacterController _controller)
     {
         if (_controller.isGrounded)
@@ -10,7 +15,23 @@ public static class Utill
         var maxDistance = 0.3f;
         return Physics.Raycast(ray, maxDistance, 3);
     }
-
+    /// <summary>
+    /// 커서 위치에 상호작용이 가능한 오브젝트가 있는지 체크
+    /// </summary>
+    /// <param name="_player">플레이어</param>
+    /// <param name="_distance">측정거리</param>
+    /// <returns></returns>
+    public static bool CheckInteraction(GameObject _player, float _distance)
+    {
+        bool cheak = false;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, _distance))
+        {
+            Debug.Log(hit.collider.tag);
+        }
+        return cheak;
+    }
 
     /// <summary>
     /// 오브젝트를 찾는 재귀함수

@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     public CharacterData playerData;
     public CameraController cameraController;
     public GameObject inventory;
+    public GameObject InteractionPanel;
 
     /// <summary>
     /// 카메라 이동량 변수
@@ -44,54 +45,15 @@ public class GameManager : Singleton<GameManager>
             return;
         if (currentScene == "TownScene")
         {
-            isGround = controller.isGrounded;
-            cameraXmove += Input.GetAxis("Mouse X");
-            cameraYmove -= Input.GetAxis("Mouse Y");
-            cameraController.CameraRotation(playerCharacter, cameraXmove, cameraYmove);
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            Controlling();
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                var offset = cameraController.transform.forward;
-                offset.y = 0;
-                playerCharacter.transform.LookAt(controller.transform.position + offset);
-            }
-
-            if (controller == null)
-            {
-                Debug.Log("컨트롤러가 존재하지 않음");
-                return;
-            }
-            
-            if (isGround)
-            {
-                moveDir = new Vector3(
-                    Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-                moveDir = controller.transform.TransformDirection(moveDir);
-                moveDir *= playerCharacter.characterData.Speed;
-                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-                    playerCharacter.isMove = true;
-                else
-                    playerCharacter.isMove = false;
-                if (!isJump && Input.GetButton("Jump"))
+                if (!isOpen && InteractionPanel.activeSelf)
                 {
-                    isJump = true;
-                    playerCharacter.isJump = true;
-                    moveDir.y = playerCharacter.characterData.JumpPower;
+                    InteractionPanel.SetActive(true);
+                    Debug.Log("대장간");
                 }
             }
-            else
-            {
-                isGround = Utill.CheckGround(controller);
-                if(!isGround)
-                    moveDir.y -= playerData.Gravity * Time.deltaTime;
-            }
-
-            if (!Input.GetButton("Jump") &&
-                isGround)
-            {
-                isJump = false;
-                playerCharacter.isJump = false;
-            }
-            controller.Move(moveDir * Time.deltaTime);
             if (Input.GetKeyDown(KeyCode.I))
             {
                 if (!isOpen)
@@ -106,5 +68,53 @@ public class GameManager : Singleton<GameManager>
                 }
             }
         }
+    }
+    /// <summary>
+    /// 이동, 점프, 카메라 컨트롤
+    /// </summary>
+    private void Controlling()
+    {
+        isGround = controller.isGrounded;
+        cameraXmove += Input.GetAxis("Mouse X");
+        cameraYmove -= Input.GetAxis("Mouse Y");
+        cameraController.CameraRotation(playerCharacter, cameraXmove, cameraYmove);
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            var offset = cameraController.transform.forward;
+            offset.y = 0;
+            playerCharacter.transform.LookAt(controller.transform.position + offset);
+        }
+
+        if (isGround)
+        {
+            moveDir = new Vector3(
+                Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDir = controller.transform.TransformDirection(moveDir);
+            moveDir *= playerCharacter.characterData.Speed;
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                playerCharacter.isMove = true;
+            else
+                playerCharacter.isMove = false;
+            if (!isJump && Input.GetButton("Jump"))
+            {
+                isJump = true;
+                playerCharacter.isJump = true;
+                moveDir.y = playerCharacter.characterData.JumpPower;
+            }
+        }
+        else
+        {
+            isGround = Utill.CheckGround(controller);
+            if (!isGround)
+                moveDir.y -= playerData.Gravity * Time.deltaTime;
+        }
+
+        if (!Input.GetButton("Jump") &&
+            isGround)
+        {
+            isJump = false;
+            playerCharacter.isJump = false;
+        }
+        controller.Move(moveDir * Time.deltaTime);
     }
 }
