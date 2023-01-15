@@ -16,7 +16,9 @@ public class GameManager : Singleton<GameManager>
     public CharacterData playerData;
     public CameraController cameraController;
     public GameObject inventory;
-    public GameObject InteractionPanel;
+    public GameObject interactionPanel;
+    public GameObject smithyMenu;
+    public Interaction interaction;
 
 
     /// <summary>
@@ -56,14 +58,17 @@ public class GameManager : Singleton<GameManager>
                 Controlling();
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!isOpen && InteractionPanel.activeSelf)
+                if (!isOpen && interactionPanel.activeSelf)
                 {
-                    InteractionPanel.SetActive(true);
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+                    interactionPanel.SetActive(false);
                     isSmithy = true;
                     playerCharacter.isMove = false;
                     isJump = false;
                     playerCharacter.isJump = false;
-                    Debug.Log("¥Î¿Â∞£");
+                    interaction.enabled = false;
+                    smithyMenu.SetActive(true);
                 }
             }
             if (Input.GetKeyDown(KeyCode.I))
@@ -84,7 +89,13 @@ public class GameManager : Singleton<GameManager>
                 }
             }
             if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                smithyMenu.SetActive(false);
+                interaction.enabled = true;
                 isSmithy = false;
+            }
         }
     }
     /// <summary>

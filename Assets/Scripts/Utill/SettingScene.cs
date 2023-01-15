@@ -32,7 +32,9 @@ public class SettingScene : MonoBehaviour
                 GameManager.Instance.controller = playerCharacter.controller;
                 GameManager.Instance.playerData = playerCharacter.characterData;
                 GameManager.Instance.inventory = Utill.FindTransform(transform, "Inventory").gameObject;
-                GameManager.Instance.InteractionPanel = Utill.FindTransform(transform, "Interaction").gameObject;
+                GameManager.Instance.interactionPanel = Utill.FindTransform(transform, "Interaction").gameObject;
+                GameManager.Instance.smithyMenu = Utill.FindTransform(transform, "SmithyMenu").gameObject;
+                GameManager.Instance.interaction = playerCharacter.transform.GetComponent<Interaction>();
             }
             //세팅이 끝나면 현재씬의 정보 변경
             GameManager.Instance.currentScene = scene.name;
