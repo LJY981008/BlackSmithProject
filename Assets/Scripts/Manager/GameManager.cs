@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject inventory;
     public GameObject InteractionPanel;
 
+
     /// <summary>
     /// 카메라 이동량 변수
     /// </summary>
@@ -34,6 +35,12 @@ public class GameManager : Singleton<GameManager>
     /// 인벤토리 변수
     /// </summary>
     private bool isOpen = false;
+
+    /// <summary>
+    /// 대장장이 작업 변수
+    /// </summary>
+    private Vector3 smithingPosition;
+    private bool isSmithy = false;
     void Start()
     {
         SaveInfoToJson.LoadSetting();
@@ -45,12 +52,17 @@ public class GameManager : Singleton<GameManager>
             return;
         if (currentScene == "TownScene")
         {
-            Controlling();
+            if(!isSmithy)
+                Controlling();
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!isOpen && InteractionPanel.activeSelf)
                 {
                     InteractionPanel.SetActive(true);
+                    isSmithy = true;
+                    playerCharacter.isMove = false;
+                    isJump = false;
+                    playerCharacter.isJump = false;
                     Debug.Log("대장간");
                 }
             }
@@ -59,14 +71,20 @@ public class GameManager : Singleton<GameManager>
                 if (!isOpen)
                 {
                     inventory.SetActive(true);
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
                     isOpen = true;
                 }
                 else
                 {
                     inventory.SetActive(false);
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
                     isOpen = false;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+                isSmithy = false;
         }
     }
     /// <summary>

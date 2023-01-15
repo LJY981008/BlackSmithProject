@@ -3,35 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+using System;
+
 public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     public List<TitleButton> itemList;
     public Image selectedIcon;
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemDetail;
     private Transform selectItem;
-    
+    private Vector3 defaultPos;
 
     private void Awake()
     {
+        defaultPos = Vector3.zero;
         itemList = new List<TitleButton>();
         selectedIcon.gameObject.SetActive(false);
         for(int i = 0; i < 48; i++)
         {
             itemList.Add(Utill.FindTransform(transform, $"item ({i})").GetComponent<TitleButton>());
         }
-
+        itemName.text = "";
+        itemDetail.text = "";
     }
 
     public void OnPointerDown(PointerEventData _eventData)
     {
-        foreach (var item in itemList)
+        
+        for (int i = 0; i < itemList.Count; i++)
         {
-            if (item.IsInRect(_eventData.position))
+            if (itemList[i].IsInRect(_eventData.position))
             {
-                selectItem = item.transform;
-                selectedIcon.gameObject.SetActive(true);
-                // 컬러 대신 이미지를 가져와 적용 빈슬롯에는 작동 안하게 적용
-                selectedIcon.color = Color.black;
-                selectedIcon.rectTransform.position = _eventData.position;
+                selectItem = itemList[i].transform;
+                if (selectItem.childCount > 0)
+                {
+                    Image _icon = selectItem.GetChild(0).GetComponent<Image>(); 
+                    selectedIcon.gameObject.SetActive(true);
+                    selectedIcon.sprite = _icon.sprite;
+                    selectedIcon.color = _icon.color;
+                    selectedIcon.rectTransform.position = _eventData.position;
+                }
                 break;
             }
         }
@@ -40,13 +52,30 @@ public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
     public void OnPointerUp(PointerEventData _eventData)
     {
         selectedIcon.gameObject.SetActive(false);
-        foreach (var item in itemList)
+        for(int i = 0; i < itemList.Count; i++)
         {
-            if (item.IsInRect(_eventData.position))
+            if (itemList[i].IsInRect(_eventData.position))
             {
-                Vector3 temp = selectItem.position;
-                selectItem.position = item.transform.position;
-                item.transform.position = temp;
+                if (itemList[i].transform == selectItem)
+                {
+                    if(selectItem.childCount > 0)
+                        SetComment(itemList[i].transform.GetChild(0).GetComponent<Image>());
+                }
+                else if(itemList[i].transform.childCount > 0)
+                {
+                    Transform destSlot = itemList[i].transform.GetChild(0);
+                    Transform startSlot = selectItem.GetChild(0);
+                    destSlot.SetParent(selectItem);
+                    startSlot.SetParent(itemList[i].transform);
+                    destSlot.localPosition = defaultPos;
+                    startSlot.localPosition = defaultPos;
+                }
+                else
+                {
+                    Transform startSlot = selectItem.GetChild(0);
+                    startSlot.SetParent(itemList[i].transform);
+                    startSlot.localPosition = defaultPos;
+                }
                 break;
             }
         }
@@ -56,5 +85,24 @@ public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
     {
         if (selectedIcon.enabled)
             selectedIcon.rectTransform.position = _eventData.position;
+    }
+    public void SetComment(Image _selected)
+    {
+        string _name = _selected.sprite.name;
+        switch (_name)
+        {
+            case "ingots":
+                {
+                    itemName.text = "철";
+                    itemDetail.text = "철광석이다";
+                }
+                break;
+            default:
+                {
+                    itemName.text = "???";
+                    itemDetail.text = "??????";
+                }
+                break;
+        }
     }
 }

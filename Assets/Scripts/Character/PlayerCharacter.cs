@@ -16,12 +16,13 @@ public class PlayerCharacter : MonoBehaviour
     private void Update()
     {
         animator.SetBool("isMove", isMove);
+        
         if (!isJump) {
-            animator.SetBool("isGround", true);
+            animator.SetBool("isGround", !isJump);
             animator.SetBool("isJump", isJump);
         }
         else {
-            animator.SetBool("isGround", false);
+            animator.SetBool("isGround", !isJump);
             animator.SetBool("isJump", isJump);
         }
     }
