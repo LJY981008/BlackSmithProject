@@ -10,14 +10,20 @@ public class GPUInstancing : MonoBehaviour
     {
         objects = new List<GameObject>();
         childTr = Utill.FindTransform(transform, "Vilige");
-        for (int i = 0; i < childTr.childCount; i++)
+        if (childTr != null)
         {
-            objects.Add(childTr.GetChild(i).gameObject);
+            for (int i = 0; i < childTr.childCount; i++)
+            {
+                objects.Add(childTr.GetChild(i).gameObject);
+            }
         }
         childTr = Utill.FindTransform(transform, "Terrains");
-        for (int i = 0; i < childTr.childCount; i++)
+        if (childTr != null)
         {
-            objects.Add(childTr.GetChild(i).gameObject);
+            for (int i = 0; i < childTr.childCount; i++)
+            {
+                objects.Add(childTr.GetChild(i).gameObject);
+            }
         }
     }
     void Start()

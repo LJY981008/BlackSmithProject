@@ -3,6 +3,32 @@ using UnityEngine.UI;
 public static class Utill
 {
     /// <summary>
+    /// 랜덤 포지션으로 레이캐스트
+    /// </summary>
+    /// <param name="_origin"> 중심위치 </param>
+    /// <param name="rangeX"> x축 반경 </param>
+    /// <param name="rangeZ"> z축 반경 </param>
+    /// <returns></returns>
+    public static Vector3 RandomPos(Vector3 _origin, float rangeX, float rangeZ)
+    {
+        Vector3 origin = _origin;
+        float randX = Random.Range(origin.x - rangeX, origin.x + rangeX);
+        float randZ = Random.Range(origin.z - rangeZ, origin.z + rangeZ);
+        origin.x = randX;
+        origin.z = randZ;
+        origin.y += 200f;
+        int layerMask = (1 << LayerMask.NameToLayer("Terrain")) + (1 << LayerMask.NameToLayer("Item"));
+        RaycastHit hitInfo;
+        if (Physics.Raycast(origin, Vector3.down, out hitInfo, Mathf.Infinity, layerMask))
+        {
+            if (hitInfo.transform.gameObject.layer == (1 << LayerMask.NameToLayer("Item")))
+                return RandomPos(_origin, rangeX, rangeZ);
+            else
+                return hitInfo.point;
+        }
+        return RandomPos(_origin, rangeX, rangeZ);
+    }
+    /// <summary>
     /// 바닥체크 개선
     /// </summary>
     /// <param name="_controller">캐릭터 컨트롤러</param>
