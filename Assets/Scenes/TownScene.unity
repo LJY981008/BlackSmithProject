@@ -2422,7 +2422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 828720274}
   - component: {fileID: 828720275}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smithy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

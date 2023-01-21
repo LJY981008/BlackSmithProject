@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CombineMeshes : MonoBehaviour
 {
+    public MeshCollider mes;
     private void Start()
     {
         MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();

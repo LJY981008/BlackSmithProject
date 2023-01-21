@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,27 +25,26 @@ public class Interaction : MonoBehaviour
     }
     private void Update()
     {
-        if(colls != null)
+        
+        if (colls.Count > 0)
         {
-            temp = colls.Find(o => Vector3.Distance(o.transform.position, transform.position) <= 2f
-                                && o.tag != "Terrain" && o.tag != "Player");
-            if(temp != null)
+            temp = colls[0];
+            if (coll == temp)
             {
-                if(coll == temp)
-                {
-                    colls.Clear();
-                }
-                else
-                {
-                    coll = temp;
-                    colls.Clear();
-                }
+                colls.Clear();
             }
+            else
+            {
+                coll = temp;
+                colls.Clear();
+            }
+
         }
         if(coll != null)
         {
             panel.gameObject.SetActive(SetUI());
-            panel.transform.position = Camera.main.WorldToScreenPoint(coll.transform.position + panelOffset);
+            if(panel.gameObject.activeSelf)
+                panel.transform.position = Camera.main.WorldToScreenPoint(coll.transform.position + panelOffset);
         }
     }
     /// <summary>
@@ -59,7 +59,7 @@ public class Interaction : MonoBehaviour
             viewPos.y >= 0 &&
             viewPos.y <= 1)
         {
-            if (Vector3.Distance(coll.transform.position, transform.position) < 2f)
+            if (Vector3.Distance(coll.transform.position, transform.position) < 5f)
             {
                 return true;
             }
@@ -72,10 +72,28 @@ public class Interaction : MonoBehaviour
     /// <returns></returns>
     public IEnumerator SearchInteractionObject()
     {
+        int layerMask = 1 << LayerMask.NameToLayer("Interaction");
         while (true)
         {
-            colls = Physics.OverlapSphere(transform.position, 30f).ToList();
-            yield return new WaitForSeconds(5f);
+            colls = Physics.OverlapSphere(transform.position, 30f, layerMask).ToList();
+            if(colls.Count > 1)
+            {
+                colls = DistanceCompare(colls);
+            }
+            yield return new WaitForEndOfFrame();
         }
+    }
+    /// <summary>
+    /// 리스트의 내용을 플레이어와의 거리 순으로 정렬
+    /// </summary>
+    /// <param name="_list">정렬할 리스트</param>
+    /// <returns></returns>
+    public List<Collider> DistanceCompare(List<Collider> _list)
+    {
+        List<Collider> list = _list;
+        list.Sort(new Comparison<Collider>((n1, n2) => 
+                        Vector3.Distance(n1.transform.position, transform.position)
+                        .CompareTo(Vector3.Distance(n2.transform.position, transform.position))));
+        return list;
     }
 }

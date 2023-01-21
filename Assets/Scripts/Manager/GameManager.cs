@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// °ÔÀÓ ÃÑ°ý ¸Å´ÏÀú
 /// </summary>
@@ -88,6 +89,8 @@ public class GameManager : Singleton<GameManager>
                     isOpen = false;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.J))
+                SceneManager.LoadScene("CaveScene");
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Cursor.visible = false;
@@ -96,6 +99,10 @@ public class GameManager : Singleton<GameManager>
                 interaction.enabled = true;
                 isSmithy = false;
             }
+        }
+        else if (currentScene == "CaveScene")
+        {
+            Controlling();
         }
     }
     /// <summary>
