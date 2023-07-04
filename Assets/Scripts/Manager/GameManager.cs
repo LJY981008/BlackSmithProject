@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 /// <summary>
 /// 게임 총괄 매니저
 /// </summary>
@@ -44,6 +46,15 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private Vector3 smithingPosition;
     private bool isSmithy = false;
+
+    /// <summary>
+    /// 광산 관련 변수
+    /// </summary>
+    public Transform interactionTarget;
+    public GameObject miningGageObj;
+    public Image miningGage;
+    public TextMeshProUGUI dropText;
+    private bool isMining = false;
     void Start()
     {
         SaveInfoToJson.LoadSetting();
@@ -102,7 +113,36 @@ public class GameManager : Singleton<GameManager>
         }
         else if (currentScene == "CaveScene")
         {
-            Controlling();
+            if (!isMining)
+            {
+                if(dropText.alpha > 0)
+                    dropText.alpha -= Time.deltaTime;
+                Controlling();
+            }
+            else
+            {
+                miningGageObj.SetActive(true);
+                miningGage.fillAmount += (Time.deltaTime / 3);
+                if (miningGage.fillAmount > 0.9)
+                {
+                    dropText.alpha = 1;
+                    dropText.text = "아이템을 습득했습니다";
+                    isMining = false;
+                    miningGageObj.SetActive(false);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (interactionPanel.activeSelf)
+                {
+                    isMining = true;
+                    miningGage.fillAmount = 0;
+                    playerCharacter.Mining();
+                    Vector3 targetPos = interactionTarget.position;
+                    targetPos.y = -7;
+                    controller.transform.LookAt(targetPos);
+                }
+            }
         }
     }
     /// <summary>
@@ -128,7 +168,10 @@ public class GameManager : Singleton<GameManager>
             moveDir = controller.transform.TransformDirection(moveDir);
             moveDir *= playerCharacter.characterData.Speed;
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                playerCharacter.animator.Play("Move");
                 playerCharacter.isMove = true;
+            }
             else
                 playerCharacter.isMove = false;
             if (!isJump && Input.GetButton("Jump"))

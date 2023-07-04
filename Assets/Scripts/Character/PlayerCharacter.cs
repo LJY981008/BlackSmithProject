@@ -26,4 +26,15 @@ public class PlayerCharacter : MonoBehaviour
             animator.SetBool("isJump", isJump);
         }
     }
+    public void Mining()
+    {
+        StopAllCoroutines();
+        animator.Play("Mining");
+        StartCoroutine(MiningLoop());
+    }
+    public IEnumerator MiningLoop()
+    {
+        yield return new WaitForSeconds(3f);
+        animator.Play("Idle");
+    }
 }

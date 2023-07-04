@@ -43,8 +43,11 @@ public class Interaction : MonoBehaviour
         if(coll != null)
         {
             panel.gameObject.SetActive(SetUI());
-            if(panel.gameObject.activeSelf)
+            if (panel.gameObject.activeSelf)
+            {
+                GameManager.Instance.interactionTarget = coll.transform;
                 panel.transform.position = Camera.main.WorldToScreenPoint(coll.transform.position + panelOffset);
+            }
         }
     }
     /// <summary>
