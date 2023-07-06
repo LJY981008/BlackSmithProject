@@ -94,4 +94,5 @@ public static class Utill
         //현재 해상도의 세로 비율이 더 길 경우
         else if (currentAspectRatio < fixedAspectRatio) thisCanvasScaler.matchWidthOrHeight = 1;
     }
+    
 }
