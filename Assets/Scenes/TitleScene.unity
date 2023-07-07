@@ -1526,6 +1526,7 @@ MonoBehaviour:
   ingotData: {fileID: 11400000, guid: eafa6e431cb91c947867e6ca30f0b2f4, type: 2}
   goldData: {fileID: 11400000, guid: 93ab33c4b075f374ab5d781684f31830, type: 2}
   diamondData: {fileID: 11400000, guid: c439bf7512c41a24b94df8de67f5646d, type: 2}
+  itemIcon: {fileID: 0}
 --- !u!4 &310851556
 Transform:
   m_ObjectHideFlags: 0
