@@ -88,6 +88,7 @@ public class GameManager : Singleton<GameManager>
                 if (!isOpen)
                 {
                     inventory.SetActive(true);
+                    Item.Instance.SetInventory();
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.Confined;
                     isOpen = true;
@@ -113,6 +114,8 @@ public class GameManager : Singleton<GameManager>
         }
         else if (currentScene == "CaveScene")
         {
+            if (Input.GetKeyDown(KeyCode.J))
+                SceneManager.LoadScene("TownScene");
             if (!isMining)
             {
                 if(dropText.alpha > 0)
@@ -127,6 +130,7 @@ public class GameManager : Singleton<GameManager>
                 {
                     dropText.alpha = 1;
                     dropText.text = "아이템을 습득했습니다";
+                    Item.Instance.GetItem();
                     isMining = false;
                     miningGageObj.SetActive(false);
                 }

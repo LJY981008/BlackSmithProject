@@ -94,7 +94,18 @@ public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
             case "ingots":
                 {
                     itemName.text = "Ã¶";
-                    itemDetail.text = "Ã¶±¤¼®ÀÌ´Ù";
+                    itemDetail.text = "Ã¶±¤¼®ÀÌ´Ù\n °¹¼ö : " + Item.Instance.ReturnItem(0);
+                }
+                break;
+            case "Rings":
+                {
+                    itemName.text = "±Ý";
+                    itemDetail.text = "±ÝÀÌ´Ù\n °¹¼ö : " + Item.Instance.ReturnItem(1);
+                }
+                break;
+            case "Gem":
+                {
+                    itemName.text = "´ÙÀÌ¾Æ¸óµåÀÌ´Ù\n °¹¼ö : " + Item.Instance.ReturnItem(2);
                 }
                 break;
             default:
