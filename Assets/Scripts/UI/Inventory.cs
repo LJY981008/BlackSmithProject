@@ -89,6 +89,7 @@ public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
     public void SetComment(Image _selected)
     {
         string _name = _selected.sprite.name;
+        Debug.Log(_name);
         switch (_name)
         {
             case "ingots":
@@ -97,15 +98,16 @@ public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
                     itemDetail.text = "철광석이다\n 갯수 : " + Item.Instance.ReturnItem(0);
                 }
                 break;
-            case "Rings":
+            case "rings":
                 {
                     itemName.text = "금";
                     itemDetail.text = "금이다\n 갯수 : " + Item.Instance.ReturnItem(1);
                 }
                 break;
-            case "Gem":
+            case "gem":
                 {
-                    itemName.text = "다이아몬드이다\n 갯수 : " + Item.Instance.ReturnItem(2);
+                    itemName.text = "다이아몬드";
+                    itemDetail.text = "다이아몬드이다\n 갯수 : " + Item.Instance.ReturnItem(2);
                 }
                 break;
             default:

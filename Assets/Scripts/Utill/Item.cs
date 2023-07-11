@@ -20,20 +20,30 @@ public class Item : Singleton<Item>
         myItem[0, 0] = ingotData.Uid;
         myItem[1, 0] = goldData.Uid;
         myItem[2, 0] = diamondData.Uid;
-        myItem[0, 1] = 1;
-        myItem[1, 1] = 1;
-        myItem[2, 1] = 1;
+        myItem[0, 1] = 5;
+        myItem[1, 1] = 5;
+        myItem[2, 1] = 5;
     }
     /// <summary>
     /// 아이템 사용
     /// </summary>
     /// <param name="_uid">아이템 아이디</param>
     /// <param name="n">사용 갯수</param>
-    public bool UseItem(int _uid, int n)
+    public void UseItem(int _uid, int n)
     {
-        if (myItem[_uid, 1] < n)
-            return false;
         myItem[_uid, 1] -= n;
+    }
+    /// <summary>
+    /// 아이템 개수 체크
+    /// </summary>
+    /// <param name="n">사용할 아이템 개수</param>
+    /// <returns></returns>
+    public bool CheakedItem(int n)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (myItem[i, 1] < n) return false;
+        }
         return true;
     }
     /// <summary>
