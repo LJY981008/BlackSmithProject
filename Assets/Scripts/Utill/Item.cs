@@ -10,11 +10,13 @@ public class Item : Singleton<Item>
     }
     const int TYPE = 3;
     const int NUMBER = 2;
-    static int[,] myItem = new int[TYPE, NUMBER];
+    public int[,] myItem = new int[TYPE, NUMBER];
     public ItemData ingotData;
     public ItemData goldData;
     public ItemData diamondData;
     public GameObject itemIcon;
+    public RunningObserver observer;
+    public string cristalName = null;
     private void Start()
     {
         myItem[0, 0] = ingotData.Uid;
@@ -52,19 +54,9 @@ public class Item : Singleton<Item>
     /// </summary>
     public void GetItem()
     {
-        int rand = Random.Range(1, 1000);
-        if(rand < 700)
-        {
-            myItem[0, 1]++;
-        }
-        else if(rand < 900)
-        {
-            myItem[1, 1]++;
-        }
-        else
-        {
-            myItem[2, 1]++;
-        }
+        Debug.Log(cristalName);
+        observer.SetCrystal(cristalName);
+        
     }
     public int ReturnItem(int _uid)
     {

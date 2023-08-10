@@ -46,6 +46,7 @@ public class Interaction : MonoBehaviour
             if (panel.gameObject.activeSelf)
             {
                 GameManager.Instance.interactionTarget = coll.transform;
+                Item.Instance.cristalName = GameManager.Instance.interactionTarget.transform.parent.name;
                 panel.transform.position = Camera.main.WorldToScreenPoint(coll.transform.position + panelOffset);
             }
         }

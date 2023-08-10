@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject interactionPanel;
     public GameObject smithyMenu;
     public Interaction interaction;
+    public ObjectPooling objectPooling;
 
 
     /// <summary>
@@ -132,6 +133,8 @@ public class GameManager : Singleton<GameManager>
                     dropText.text = "아이템을 습득했습니다";
                     Item.Instance.GetItem();
                     isMining = false;
+                    Debug.Log(interactionTarget.parent.name);
+                    objectPooling.ReturnItem(int.Parse(interactionTarget.parent.name));
                     miningGageObj.SetActive(false);
                 }
             }

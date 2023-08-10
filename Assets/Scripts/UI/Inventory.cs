@@ -95,19 +95,19 @@ public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
             case "ingots":
                 {
                     itemName.text = "철";
-                    itemDetail.text = "철광석이다\n 갯수 : " + Item.Instance.ReturnItem(0);
+                    itemDetail.text = "철광석이다\n 개수 : " + Item.Instance.ReturnItem(0);
                 }
                 break;
             case "rings":
                 {
                     itemName.text = "금";
-                    itemDetail.text = "금이다\n 갯수 : " + Item.Instance.ReturnItem(1);
+                    itemDetail.text = "금이다\n 개수 : " + Item.Instance.ReturnItem(1);
                 }
                 break;
             case "gem":
                 {
                     itemName.text = "다이아몬드";
-                    itemDetail.text = "다이아몬드이다\n 갯수 : " + Item.Instance.ReturnItem(2);
+                    itemDetail.text = "다이아몬드이다\n 개수 : " + Item.Instance.ReturnItem(2);
                 }
                 break;
             default:

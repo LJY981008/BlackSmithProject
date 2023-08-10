@@ -53,6 +53,7 @@ public class SettingScene : MonoBehaviour
                 GameManager.Instance.miningGageObj = Utill.FindTransform(transform, "MiningGage").gameObject;
                 GameManager.Instance.miningGage = GameManager.Instance.miningGageObj.transform.GetChild(0).GetComponent<Image>();
                 GameManager.Instance.dropText = Utill.FindTransform(transform, "RewordText").gameObject.GetComponent<TextMeshProUGUI>();
+                GameManager.Instance.objectPooling = Utill.FindTransform(transform, "Mineral").GetComponent<ObjectPooling>();
             }
             //세팅이 끝나면 현재씬의 정보 변경
             GameManager.Instance.currentScene = scene.name;
